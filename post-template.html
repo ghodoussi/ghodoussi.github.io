@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Post Title Here — Alex Rivera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400;1,8..60,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <main class="notebook" style="padding-top: 4rem;">
+    <div class="notebook__inner">
+      <a class="back-link" href="../index.html">&larr; back to the notebook</a>
+
+      <p class="notebook__label">MONTH YEAR · TAGS, GO, HERE</p>
+      <h1 class="notebook__title" style="margin-bottom: 2rem;">Post Title Here</h1>
+
+      <article class="post">
+        <p>Opening paragraph goes here.</p>
+
+        <h2>A section heading</h2>
+        <p>More prose.</p>
+
+        <!-- LIVE JAVASCRIPT CELL — runs for real when the reader clicks Run -->
+        <div class="cell" data-lang="js">
+          <p class="cell__prompt">In [<span class="count">1</span>]:</p>
+          <div class="cell__code-wrap">
+            <pre class="cell__code" contenteditable="true" spellcheck="false">console.log("replace with your code");</pre>
+            <div class="cell__toolbar">
+              <button class="cell__run">Run &#9656;</button>
+              <span class="cell__lang">JavaScript</span>
+            </div>
+          </div>
+          <div class="cell__output-wrap">
+            <p class="cell__prompt">Out[<span class="count">1</span>]:</p>
+            <pre class="cell__output"></pre>
+          </div>
+        </div>
+
+        <!-- LIVE PYTHON CELL — loads Pyodide on first run in this page -->
+        <div class="cell" data-lang="python">
+          <p class="cell__prompt">In [<span class="count">2</span>]:</p>
+          <div class="cell__code-wrap">
+            <pre class="cell__code" contenteditable="true" spellcheck="false">print("replace with your code")</pre>
+            <div class="cell__toolbar">
+              <button class="cell__run">Run &#9656;</button>
+              <span class="cell__lang">Python</span>
+            </div>
+          </div>
+          <div class="cell__output-wrap">
+            <p class="cell__prompt">Out[<span class="count">2</span>]:</p>
+            <pre class="cell__output"></pre>
+          </div>
+        </div>
+
+        <!-- STATIC CELL — code + hand-written output, nothing executes -->
+        <div class="cell cell--static">
+          <p class="cell__prompt">In [3]:</p>
+          <div class="cell__code-wrap">
+            <pre class="cell__code">your_code_here()</pre>
+          </div>
+          <div class="cell__output-wrap">
+            <p class="cell__prompt">Out[3]:</p>
+            <pre class="cell__output cell__output--visible">the output you already got</pre>
+          </div>
+          <p class="note">static cell — output written by hand, not executed</p>
+        </div>
+
+        <p>Closing paragraph.</p>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p><a class="back-link" href="../index.html">&larr; back to the notebook</a></p>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

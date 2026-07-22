@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alex Rivera — Notes & Notebook</title>
+<meta name="description" content="Personal site and coding notebook of Alex Rivera, computer science student.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400;1,8..60,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ===================== LANDING / COVER ===================== -->
+  <header class="cover">
+    <p class="cover__eyebrow">Computer Science · Class of 2027</p>
+    <h1 class="cover__name">Hi, I'm Alex Rivera.</h1>
+    <hr class="cover__rule">
+    <p class="cover__bio">
+      I'm a junior studying computer science, currently interested in distributed
+      systems and a little too obsessed with finding the right side project.
+      This site is part portfolio, part running notebook of things I build and learn.
+    </p>
+    <div class="cover__links">
+      <a class="icon-link" href="https://www.linkedin.com/in/your-handle" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/>
+        </svg>
+      </a>
+      <a class="icon-link" href="mailto:alex.rivera@example.edu" aria-label="Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M3 6h18v12H3z"/><path d="M3 6l9 7 9-7"/>
+        </svg>
+      </a>
+      <a class="icon-link" href="https://github.com/your-handle" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/>
+        </svg>
+      </a>
+    </div>
+    <p class="cover__scroll-cue">
+      open the notebook
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M12 4v16M5 13l7 7 7-7"/>
+      </svg>
+    </p>
+  </header>
+  <div class="cover-spacer" aria-hidden="true"></div>
+
+  <!-- ===================== NOTEBOOK / BLOG LIST ===================== -->
+  <main class="notebook">
+    <div class="notebook__inner">
+      <div class="notebook__header">
+        <p class="notebook__label">The Notebook</p>
+        <h2 class="notebook__title">Things I'm building and learning, roughly in order.</h2>
+      </div>
+
+      <ul class="toc">
+        <li>
+          <a class="toc__item" href="posts/first-post.html">
+            <span class="toc__index">01</span>
+            <span class="toc__body">
+              <h3 class="toc__post-title">Getting a feel for A/B test power analysis</h3>
+              <p class="toc__meta">JULY 2026 · PYTHON, JAVASCRIPT</p>
+              <p class="toc__excerpt">
+                A walk-through of why small sample sizes lie to you, with runnable
+                cells so you can nudge the numbers yourself instead of trusting mine.
+              </p>
+            </span>
+          </a>
+        </li>
+
+        <!--
+          To add a new post:
+          1. Copy posts/post-template.html to posts/your-slug.html
+          2. Fill in the title, date, and cell content
+          3. Add a new <li class="toc__item"> entry here, above this comment,
+             using the next index number (02, 03, ...)
+        -->
+      </ul>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>Built by hand. No frameworks were harmed in the making of this site.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
