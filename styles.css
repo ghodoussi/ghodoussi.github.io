@@ -290,12 +290,13 @@ a { color: inherit; }
 }
 
 /* -------------------------------------------------------------------------
-   Dim-theme hover glow — a warm triangular "beam" sits flush against the
-   left edge of each entry at rest, like a light leaking in from the
-   margin rule. On hover it widens into a soft rounded band that covers
-   most of the entry. Both shapes are 4-point polygons so the browser can
-   morph smoothly between them; the blur is what gives the "rounded right
-   edge" look rather than a hard geometric curve.
+   Dim-theme hover glow — at rest, a fixed point of light sits at the left
+   margin and flares open into a small rectangle (like a flashlight held
+   right at the edge). On hover, that same point opens further into a wide
+   glow covering most of the entry. Both shapes are 5-point polygons with
+   the same point order, so the browser morphs smoothly between them
+   instead of snapping; the blur is what gives the soft rounded look
+   rather than a hard geometric edge.
    ------------------------------------------------------------------------- */
 :root[data-theme="dim"] .toc__item {
   position: relative;
@@ -319,14 +320,19 @@ a { color: inherit; }
     rgba(var(--glow-rgb), 0.6),
     rgba(var(--glow-rgb), 0) 85%
   );
-  clip-path: polygon(0% 32%, 0% 68%, 18% 50%, 18% 50%);
+  /* A fixed point source at the left-middle edge, flaring open into a
+     modest rectangle — like a flashlight held right at the margin. */
+  clip-path: polygon(0% 50%, 12% 10%, 28% 10%, 28% 90%, 12% 90%);
   filter: blur(11px);
   opacity: 0.85;
   transition: clip-path 0.45s ease, opacity 0.45s ease;
 }
 
 :root[data-theme="dim"] .toc__item:hover::before {
-  clip-path: polygon(0% 0%, 0% 100%, 90% 100%, 90% 0%);
+  /* Same point count/order — the source point stays put, the two
+     "shoulder" points collapse onto it to form a flush left edge, and
+     the far edge extends out to cover most of the entry. */
+  clip-path: polygon(0% 50%, 0% 10%, 90% 10%, 90% 90%, 0% 90%);
   opacity: 1;
 }
 
