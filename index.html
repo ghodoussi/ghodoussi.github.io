@@ -2,6 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>
+  // Applied before CSS renders, so there's no flash of the wrong theme.
+  try {
+    if (localStorage.getItem('notebook-theme') === 'dim') {
+      document.documentElement.setAttribute('data-theme', 'dim');
+    }
+  } catch (e) { /* ignore */ }
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ryon Ghodoussi — Notes to Self</title>
 <meta name="description" content="Personal site and coding notebook of Ryon Ghodoussi">
@@ -10,7 +18,11 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
+  <div class="theme-toggle" role="group" aria-label="Notebook color theme">
+    <button type="button" class="theme-toggle__btn" data-theme-value="lined" aria-pressed="true">Lined</button>
+    <button type="button" class="theme-toggle__btn" data-theme-value="dim" aria-pressed="false">Dim</button>
+  </div>
+  
   <!-- ===================== LANDING / COVER ===================== -->
   <header class="cover">
     <canvas class="cover__stars" id="starscape" aria-hidden="true"></canvas>

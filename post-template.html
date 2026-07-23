@@ -2,6 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>
+  try {
+    if (localStorage.getItem('notebook-theme') === 'dim') {
+      document.documentElement.setAttribute('data-theme', 'dim');
+    }
+  } catch (e) { /* ignore */ }
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Post Title Here — Alex Rivera</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -9,6 +16,11 @@
 <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
+  <div class="theme-toggle" role="group" aria-label="Notebook color theme">
+    <button type="button" class="theme-toggle__btn" data-theme-value="lined" aria-pressed="true">Lined</button>
+    <button type="button" class="theme-toggle__btn" data-theme-value="dim" aria-pressed="false">Dim</button>
+  </div>
+
   <main class="notebook" style="padding-top: 4rem;">
     <div class="notebook__inner">
       <a class="back-link" href="../index.html">&larr; back to the notebook</a>

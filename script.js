@@ -1,4 +1,40 @@
 /* =========================================================================
+   Theme toggle (lined / dim)
+   The inline snippet in each page's <head> applies the stored theme before
+   first paint (avoids a flash of the wrong theme). This just wires up the
+   buttons and keeps them in sync with whatever's active.
+   ========================================================================= */
+(function initThemeToggle() {
+  const STORAGE_KEY = 'notebook-theme';
+  const root = document.documentElement;
+  const buttons = document.querySelectorAll('.theme-toggle__btn');
+  if (!buttons.length) return;
+ 
+  function applyTheme(theme) {
+    if (theme === 'dim') {
+      root.setAttribute('data-theme', 'dim');
+    } else {
+      root.removeAttribute('data-theme');
+    }
+    buttons.forEach((btn) => {
+      btn.setAttribute('aria-pressed', String(btn.dataset.themeValue === theme));
+    });
+  }
+ 
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const theme = btn.dataset.themeValue;
+      try { localStorage.setItem(STORAGE_KEY, theme); } catch (e) { /* ignore */ }
+      applyTheme(theme);
+    });
+  });
+ 
+  let stored = 'lined';
+  try { stored = localStorage.getItem(STORAGE_KEY) || 'lined'; } catch (e) { /* ignore */ }
+  applyTheme(stored);
+})();
+
+/* =========================================================================
    Hero -> notebook scroll fade
    The cover is position:fixed. As the user scrolls through the height of
    .cover-spacer, we fade + slightly scale the cover down so it feels like

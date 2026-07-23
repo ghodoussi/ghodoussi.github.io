@@ -25,6 +25,31 @@
      concept is the point of the design. Respect reduced motion instead. */
 }
 
+/* -------------------------------------------------------------------------
+   Dim theme — same tokens, dark values. Because every rule in this file
+   already reads from these custom properties instead of hardcoded colors,
+   swapping the theme is just re-pointing the tokens; nothing else below
+   needs a dark-mode-specific override except the glow effect, which only
+   exists in dim mode.
+   ------------------------------------------------------------------------- */
+:root[data-theme="dim"] {
+  --paper:        #0A0A0B;
+  --paper-line:   #0A0A0B;   /* same as paper — ruling disappears, flat black */
+  --margin-rule:  #C97C3D;   /* warm, ties to the glow accent */
+  --ink:          #F3F4F0;
+  --ink-soft:     #9BA1A8;
+  --accent:       #E2954F;
+  --accent-mint:  #57C9A3;
+  --cell-bg:      #17181B;
+  --cell-text:    #E4E7EA;
+  --cell-border:  #2B2D31;
+  --glow-rgb:     226, 130, 60;  /* warm orange, used by the hover glow */
+}
+
+:root[data-theme="dim"] .notebook::before {
+  opacity: 0.4;
+}
+
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
@@ -264,6 +289,53 @@ a { color: inherit; }
   margin: 0.5rem 0 0 0;
 }
 
+/* -------------------------------------------------------------------------
+   Dim-theme hover glow — a warm triangular "beam" sits flush against the
+   left edge of each entry at rest, like a light leaking in from the
+   margin rule. On hover it widens into a soft rounded band that covers
+   most of the entry. Both shapes are 4-point polygons so the browser can
+   morph smoothly between them; the blur is what gives the "rounded right
+   edge" look rather than a hard geometric curve.
+   ------------------------------------------------------------------------- */
+:root[data-theme="dim"] .toc__item {
+  position: relative;
+  overflow: hidden;
+}
+
+:root[data-theme="dim"] .toc__index,
+:root[data-theme="dim"] .toc__body {
+  position: relative;
+  z-index: 1;
+}
+
+:root[data-theme="dim"] .toc__item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    rgba(var(--glow-rgb), 0.6),
+    rgba(var(--glow-rgb), 0) 85%
+  );
+  clip-path: polygon(0% 32%, 0% 68%, 18% 50%, 18% 50%);
+  filter: blur(11px);
+  opacity: 0.85;
+  transition: clip-path 0.45s ease, opacity 0.45s ease;
+}
+
+:root[data-theme="dim"] .toc__item:hover::before {
+  clip-path: polygon(0% 0%, 0% 100%, 90% 100%, 90% 0%);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root[data-theme="dim"] .toc__item::before {
+    transition: none;
+  }
+}
+
 /* =========================================================================
    Blog post page (prose + cells)
    ========================================================================= */
@@ -396,4 +468,47 @@ footer.site-footer {
   font-family: var(--font-mono);
   font-size: 0.75rem;
   color: var(--ink-soft);
+}
+
+/* =========================================================================
+   Theme toggle — fixed top-right on every page, so it's reachable whether
+   you're on the hero or already deep in a post.
+   ========================================================================= */
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1.1rem;
+  z-index: 50;
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  background: rgba(20, 23, 26, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.theme-toggle__btn {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.7rem;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: #C7CDD4;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.theme-toggle__btn[aria-pressed="true"] {
+  background: #F3F4F0;
+  color: #14171A;
+}
+
+:root[data-theme="dim"] .theme-toggle__btn[aria-pressed="true"] {
+  background: var(--accent);
+  color: #14171A;
 }
