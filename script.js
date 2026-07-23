@@ -51,9 +51,12 @@
   let resizeTimer = null;
 
   function sizeCanvas() {
-    const rect = canvas.getBoundingClientRect();
-    canvas.width = Math.max(rect.width, 1) * dpr;
-    canvas.height = Math.max(rect.height, 1) * dpr;
+    // .cover is position: fixed; inset: 0 — it's always exactly the
+    // viewport size, so we size off that directly rather than
+    // getBoundingClientRect(), which is one more thing that can race
+    // with layout on first paint.
+    canvas.width = Math.max(window.innerWidth, 1) * dpr;
+    canvas.height = Math.max(window.innerHeight, 1) * dpr;
   }
 
   function generateStars() {
