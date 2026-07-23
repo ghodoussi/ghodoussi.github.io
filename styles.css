@@ -1,6 +1,15 @@
 /* =========================================================================
    Design tokens
    ========================================================================= */
+
+/* Lets the dim-theme glow's reach be smoothly animated on hover — plain
+   custom properties can't be transitioned without this registration. */
+@property --glow-extent {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 28%;
+}
+
 :root {
   --paper:        #F3F4F0;   /* cool paper white, faint green-grey undertone */
   --paper-line:   #DCE0DA;   /* ruled horizontal lines on the paper */
@@ -290,17 +299,39 @@ a { color: inherit; }
 }
 
 /* -------------------------------------------------------------------------
-   Dim-theme hover glow — at rest, a fixed point of light sits at the left
-   margin and flares open into a small rectangle (like a flashlight held
-   right at the edge). On hover, that same point opens further into a wide
-   glow covering most of the entry. Both shapes are 5-point polygons with
-   the same point order, so the browser morphs smoothly between them
-   instead of snapping; the blur is what gives the soft rounded look
-   rather than a hard geometric edge.
+   Dim-theme hover glow.
+
+   The "source point" sits off-canvas to the left (behind the entry
+   number's column) and never moves — only --glow-extent changes on
+   hover, which is how far the beam reaches before rounding off into a
+   soft capsule tip. Because --glow-extent is a registered animatable
+   property (see top of file), every calc() built from it — the tip
+   position, the noise overlay, the color falloff — animates together
+   automatically; nothing else needs its own transition.
+
+   The tip is several points curving inward rather than a flat vertical
+   edge; combined with the blur, that reads as a rounded/semicircle-ish
+   fade instead of a hard cutoff.
    ------------------------------------------------------------------------- */
 :root[data-theme="dim"] .toc__item {
   position: relative;
   overflow: hidden;
+  --glow-extent: 28%;
+  --glow-clip: polygon(
+    -18% 50%,
+    8% 10%,
+    calc(var(--glow-extent) - 6%) 10%,
+    calc(var(--glow-extent) - 1%) 16%,
+    calc(var(--glow-extent) + 2%) 50%,
+    calc(var(--glow-extent) - 1%) 84%,
+    calc(var(--glow-extent) - 6%) 90%,
+    8% 90%
+  );
+  transition: --glow-extent 0.45s ease;
+}
+
+:root[data-theme="dim"] .toc__item:hover {
+  --glow-extent: 90%;
 }
 
 :root[data-theme="dim"] .toc__index,
@@ -318,26 +349,40 @@ a { color: inherit; }
   background: linear-gradient(
     to right,
     rgba(var(--glow-rgb), 0.6),
-    rgba(var(--glow-rgb), 0) 85%
+    rgba(var(--glow-rgb), 0) 92%
   );
-  /* A fixed point source at the left-middle edge, flaring open into a
-     modest rectangle — like a flashlight held right at the margin. */
-  clip-path: polygon(0% 50%, 12% 10%, 28% 10%, 28% 90%, 12% 90%);
+  clip-path: var(--glow-clip);
   filter: blur(11px);
   opacity: 0.85;
-  transition: clip-path 0.45s ease, opacity 0.45s ease;
+  transition: opacity 0.45s ease;
 }
 
 :root[data-theme="dim"] .toc__item:hover::before {
-  /* Same point count/order — the source point stays put, the two
-     "shoulder" points collapse onto it to form a flush left edge, and
-     the far edge extends out to cover most of the entry. */
-  clip-path: polygon(0% 50%, 0% 10%, 90% 10%, 90% 90%, 0% 90%);
   opacity: 1;
 }
 
+/* A faint grain over the glow so it reads a little less like a flat
+   digital gradient and more like actual light. */
+:root[data-theme="dim"] .toc__item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  clip-path: var(--glow-clip);
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0.6px, transparent 0.6px);
+  background-size: 3px 3px;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  transition: opacity 0.45s ease;
+}
+
+:root[data-theme="dim"] .toc__item:hover::after {
+  opacity: 0.09;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  :root[data-theme="dim"] .toc__item::before {
+  :root[data-theme="dim"] .toc__item {
     transition: none;
   }
 }
