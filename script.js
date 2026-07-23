@@ -20,7 +20,7 @@
       return;
     }
     cover.style.opacity = String(1 - progress);
-    cover.style.transform = `scale(${1 - progress * 0.06}) translateY(${progress * -30}px)`;
+    //cover.style.transform = `scale(${1 - progress * 0.06}) translateY(${progress * -30}px)`;
     cover.style.visibility = progress >= 1 ? 'hidden' : 'visible';
   }
 
@@ -45,7 +45,7 @@
 
   const postCount = Math.max(document.querySelectorAll('.toc__item').length, 1);
   // Diminishing returns so the sky doesn't get noisy after dozens of posts.
-  const starCount = Math.round(60 + 55 * Math.sqrt(postCount));
+  const starCount = Math.round(20 + 55 * Math.sqrt(postCount));
 
   let stars = [];
   let resizeTimer = null;
