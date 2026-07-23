@@ -320,11 +320,11 @@ a { color: inherit; }
   --glow-clip: polygon(
     -18% 50%,
     8% 2%,
-    calc(var(--glow-extent) - 6%) 10%,
+    /*calc(var(--glow-extent) - 6%) 10%,
     calc(var(--glow-extent) - 1%) 16%,
     calc(var(--glow-extent) + 2%) 50%,
     calc(var(--glow-extent) - 1%) 84%,
-    calc(var(--glow-extent) - 6%) 90%,
+    calc(var(--glow-extent) - 6%) 90%,*/
     8% 98%
   );
   transition: --glow-extent 0.45s ease;
