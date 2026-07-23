@@ -30,6 +30,87 @@
 })();
 
 /* =========================================================================
+   Starscape
+   Draws a field of stars on the hero canvas. The number of stars scales
+   with how many posts exist in the notebook's table of contents — so the
+   sky fills in a little more with every post you write. No manual count
+   to maintain: it just reads the DOM.
+   ========================================================================= */
+(function initStarscape() {
+  const canvas = document.getElementById('starscape');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const dpr = Math.max(window.devicePixelRatio || 1, 1);
+
+  const postCount = Math.max(document.querySelectorAll('.toc__item').length, 1);
+  // Diminishing returns so the sky doesn't get noisy after dozens of posts.
+  const starCount = Math.round(60 + 55 * Math.sqrt(postCount));
+
+  let stars = [];
+  let resizeTimer = null;
+
+  function sizeCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = Math.max(rect.width, 1) * dpr;
+    canvas.height = Math.max(rect.height, 1) * dpr;
+  }
+
+  function generateStars() {
+    stars = [];
+    for (let i = 0; i < starCount; i++) {
+      const roll = Math.random();
+      // three size classes, most stars small — mirrors a real night sky
+      const radius = roll < 0.72 ? 0.5 + Math.random() * 0.5
+                    : roll < 0.94 ? 1.0 + Math.random() * 0.6
+                    : 1.7 + Math.random() * 0.9;
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: radius * dpr,
+        baseAlpha: 0.35 + Math.random() * 0.65,
+        phase: Math.random() * Math.PI * 2,
+        speed: 0.4 + Math.random() * 0.9,
+        glow: roll >= 0.94, // only the biggest stars get a soft glow
+      });
+    }
+  }
+
+  function draw(time) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (const s of stars) {
+      const twinkle = reduceMotion ? 1 : 0.7 + 0.3 * Math.sin((time / 1000) * s.speed + s.phase);
+      const alpha = s.baseAlpha * twinkle;
+      if (s.glow) {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r * 3, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(243,244,240,${(alpha * 0.08).toFixed(3)})`;
+        ctx.fill();
+      }
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(243,244,240,${alpha.toFixed(3)})`;
+      ctx.fill();
+    }
+    if (!reduceMotion) requestAnimationFrame(draw);
+  }
+
+  function handleResize() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      sizeCanvas();
+      generateStars();
+      if (reduceMotion) draw(0);
+    }, 150);
+  }
+
+  sizeCanvas();
+  generateStars();
+  requestAnimationFrame(draw);
+  window.addEventListener('resize', handleResize);
+})();
+
+/* =========================================================================
    Notebook cell engine
    Each cell in the DOM looks like:
 
