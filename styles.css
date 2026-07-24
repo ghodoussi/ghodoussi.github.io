@@ -316,22 +316,19 @@ a { color: inherit; }
 :root[data-theme="dim"] .toc__item {
   position: relative;
   overflow: hidden;
-  --glow-extent: 28%;
+  --glow-extent: 6%;
   --glow-clip: polygon(
-    -18% 50%,
-    8% 2%,
-    /*calc(var(--glow-extent) - 6%) 10%,
-    calc(var(--glow-extent) - 1%) 16%,
-    calc(var(--glow-extent) + 2%) 50%,
-    calc(var(--glow-extent) - 1%) 84%,
-    calc(var(--glow-extent) - 6%) 90%,*/
-    8% 98%
+      -18% 50%,
+      0% 0%,	      
+      var(--glow-extent) 8%,
+      var(--glow-extent) 92%,
+      0 100%
   );
   transition: --glow-extent 0.45s ease;
 }
 
 :root[data-theme="dim"] .toc__item:hover {
-  --glow-extent: 90%;
+    --glow-extent: 94%;
 }
 
 :root[data-theme="dim"] .toc__index,
