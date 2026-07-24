@@ -10,7 +10,17 @@
   } catch (e) { /* ignore */ }
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Getting a feel for A/B test power analysis — Ryon Ghodoussi</title>
+<title>Starting Out — Ryon Ghodoussi</title>
+<script type="application/json" id="post-meta">
+{
+  "title": "Starting Out",
+  "date": "July 2026",
+  "sortDate": "2026-07",
+  "tags": ["Python","JavaScript"],
+  "excerpt": "Walking through the website setup, testing functionality, and making stuff work.",
+  "draft": false
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400;1,8..60,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
@@ -26,39 +36,28 @@
       <a class="back-link" href="../index.html">&larr; back to the notebook</a>
 
       <p class="notebook__label">JULY 2026 · PYTHON, JAVASCRIPT</p>
-      <h1 class="notebook__title" style="margin-bottom: 2rem;">
-        Getting a feel for A/B test power analysis
-      </h1>
+      <h1 class="notebook__title" style="margin-bottom: 2rem;">Starting Out</h1>
 
       <article class="post">
-        <p>
-          Every time I run a small experiment, I want to believe the result
-          the moment I see it. The truth is that with a small sample, a
-          "40% lift" can be indistinguishable from noise. Below are a couple
-          of cells you can actually run and tweak &mdash; edit the code, hit
-          run, and see how the numbers move.
-        </p>
+        <p>This website is my journal of finding problems, building solutions, and learning how to learn. For today, though, I want to test out (and show off) some functionality of my blog posts.</p>
 
-        <h2>1. A quick simulation in JavaScript</h2>
-        <p>
-          This cell simulates flipping two biased coins (control vs. variant)
-          many times and reports how often the variant "wins" purely by luck
-          when the true rates are actually equal. Try changing <code>trials</code>
-          or the sample size and re-running.
-        </p>
+        <h2>1. Coding Cells</h2>
+
+        <p>The javascript cell below simulates flipping two biased coins (control vs. variant)           many times and reports how often the variant "wins" purely by luck           when the true rates are actually equal.</p>
+        <p>These dynamic coding cells (created with Pyodide) are editable by any viewer of this page. You are welcome to try changing <code>trials</code>           or the sample size or even the whole cell content and re-running.</p>
 
         <div class="cell" data-lang="js">
           <p class="cell__prompt">In [<span class="count">1</span>]:</p>
           <div class="cell__code-wrap">
             <pre class="cell__code" contenteditable="true" spellcheck="false">function simulate(sampleSize, trials) {
   let falseWins = 0;
-  for (let t = 0; t < trials; t++) {
+  for (let t = 0; t &lt; trials; t++) {
     let a = 0, b = 0;
-    for (let i = 0; i < sampleSize; i++) {
-      if (Math.random() < 0.10) a++; // control, true rate 10%
-      if (Math.random() < 0.10) b++; // variant, ALSO true rate 10%
+    for (let i = 0; i &lt; sampleSize; i++) {
+      if (Math.random() &lt; 0.10) a++; // control, true rate 10%
+      if (Math.random() &lt; 0.10) b++; // variant, ALSO true rate 10%
     }
-    if (b > a) falseWins++;
+    if (b &gt; a) falseWins++;
   }
   return (falseWins / trials * 100).toFixed(1) + '% of trials showed variant "winning" by chance';
 }
@@ -75,18 +74,9 @@ console.log(simulate(200, 2000));</pre>
           </div>
         </div>
 
-        <p>
-          With only 200 users per arm, a meaningful chunk of "wins" are just
-          noise. That gap is the whole reason power analysis exists.
-        </p>
+        <h2>2. Power calculation, in Python</h2>
 
-        <h2>2. The actual power calculation, in Python</h2>
-        <p>
-          Same question, done properly: given a baseline conversion rate and
-          a minimum lift worth detecting, how many users do you need per arm?
-          This cell runs real Python in your browser (first click loads the
-          runtime, so it takes a few seconds the first time).
-        </p>
+        <p>Same question, done properly: given a baseline conversion rate and           a minimum lift worth detecting, how many users do you need per arm?           This cell runs real Python in your browser (first click loads the           runtime, so it takes a few seconds the first time).</p>
 
         <div class="cell" data-lang="python">
           <p class="cell__prompt">In [<span class="count">2</span>]:</p>
@@ -115,17 +105,11 @@ print(f"Users needed per arm to reliably detect a 2pt lift: {n}")</pre>
           </div>
         </div>
 
-        <p>
-          That number is almost always bigger than people expect &mdash;
-          which is the actual lesson, more than any specific formula.
-        </p>
+        <p>That number is almost always bigger than people expect —           which is the actual lesson, more than any specific formula.</p>
 
         <h2>3. A worked example, shown rather than run</h2>
-        <p>
-          Not every cell needs to be live. Sometimes it's clearer to just
-          show the input and the output you already got, like a real
-          notebook you're reading back later.
-        </p>
+
+        <p>Not every cell is live, for some with simple calculations or long runtime, they have static outputs that are pre-processed.</p>
 
         <div class="cell cell--static">
           <p class="cell__prompt">In [3]:</p>
@@ -138,11 +122,6 @@ print(f"Users needed per arm to reliably detect a 2pt lift: {n}")</pre>
           </div>
           <p class="note">static cell — output written by hand, not executed</p>
         </div>
-
-        <p>
-          Next time: why the "pooled variance" step above is doing more
-          work than it looks like.
-        </p>
       </article>
     </div>
   </main>

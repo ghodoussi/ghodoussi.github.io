@@ -64,12 +64,23 @@
   
   <!-- ===================== NOTEBOOK / BLOG LIST ===================== -->
   <main class="notebook">
+    <div class="lamp" data-words-src="words.txt" aria-hidden="true">
+      <svg class="lamp__icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 6h10l-3 9H11z"/>
+        <path d="M13 15v6"/>
+        <path d="M13 21c-5 0-9 3-9 7h18c0-4-4-7-9-7z"/>
+      </svg>
+      <button type="button" class="lamp__beam">
+        <span class="lamp__word">&nbsp;</span>
+      </button>
+    </div>
     <div class="notebook__inner">
       <div class="notebook__header">
         <p class="notebook__label">The Notebook</p>
         <h2 class="notebook__title">Things I'm building and learning, roughly in order.</h2>
       </div>
 
+      <!-- AUTO-GENERATED TOC: START (do not hand-edit — run `node build.js`) -->
       <ul class="toc">
         <li>
           <a class="toc__item" href="posts/first-post.html">
@@ -78,21 +89,13 @@
               <h3 class="toc__post-title">Getting a feel for A/B test power analysis</h3>
               <p class="toc__meta">JULY 2026 · PYTHON, JAVASCRIPT</p>
               <p class="toc__excerpt">
-                A walk-through of why small sample sizes lie to you, with runnable
-                cells so you can nudge the numbers yourself instead of trusting mine.
+                A walk-through of why small sample sizes lie to you, with runnable cells so you can nudge the numbers yourself instead of trusting mine.
               </p>
             </span>
           </a>
         </li>
-
-        <!--
-          To add a new post:
-          1. Copy posts/post-template.html to posts/your-slug.html
-          2. Fill in the title, date, and cell content
-          3. Add a new <li class="toc__item"> entry here, above this comment,
-             using the next index number (02, 03, ...)
-        -->
       </ul>
+      <!-- AUTO-GENERATED TOC: END -->
     </div>
   </main>
 
