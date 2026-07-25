@@ -5,12 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Write a post (local tool)</title>
     <!--
-	This is a LOCAL AUTHORING TOOL, not a page on the live site. It isn't
-	linked from index.html and there's no reason to deploy it — just open
-	this file directly in your browser whenever you want to write a post.
-
-	It links styles.css only so the preview pane can show your content the
-	way it'll actually look once published.
+	LOCAL AUTHORING TOOL
+	Links to styles.css so the preview pane can show final publishing visual
       -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400;1,8..60,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -251,7 +247,7 @@
     <div class="shell">
       <div class="page-header">
 	<h1>Write a post</h1>
-	<p>Local tool — open this file whenever you want to write. Nothing here touches the live site until you Save and push.</p>
+	<p>Local tool. Nothing reaches live site until Saved and pushed.</p>
       </div>
 
       <div class="editor-body">
@@ -265,7 +261,7 @@
 
 	  <div class="field">
             <label for="fieldTitle">Title</label>
-            <input type="text" id="fieldTitle" placeholder="Getting a feel for A/B test power analysis">
+            <input type="text" id="fieldTitle" placeholder="Exploring different pseudo-randomness generation methods">
 	  </div>
 	  
 	  <div class="field">
@@ -346,52 +342,52 @@
 	  function blockToEditorHtml(b, i) {
 	      if (b.type === 'paragraph') {
 		  return `
-        <div class="block" data-index="${i}" data-type="paragraph">
-          <div class="block-toolbar">
-            <span class="block-kind">Paragraph</span>
-            ${blockActions(i)}
-          </div>
-          <textarea class="field-text" data-field="text" rows="4" placeholder="Write your prose here. Use blank lines between paragraphs, and \`backticks\` for inline code.">${escapeHtml(b.text)}</textarea>
-        </div>`;
+              <div class="block" data-index="${i}" data-type="paragraph">
+		<div class="block-toolbar">
+		  <span class="block-kind">Paragraph</span>
+		  ${blockActions(i)}
+		</div>
+		<textarea class="field-text" data-field="text" rows="4" placeholder="Write your prose here. Use blank lines between paragraphs, and \`backticks\` for inline code.">${escapeHtml(b.text)}</textarea>
+              </div>`;
 	      }
 	      if (b.type === 'heading') {
 		  return `
-        <div class="block" data-index="${i}" data-type="heading">
-          <div class="block-toolbar">
-            <span class="block-kind">Heading</span>
-            ${blockActions(i)}
-          </div>
-          <input type="text" class="field-text" data-field="text" value="${escapeHtml(b.text)}" placeholder="A section heading">
-        </div>`;
+              <div class="block" data-index="${i}" data-type="heading">
+		<div class="block-toolbar">
+		  <span class="block-kind">Heading</span>
+		  ${blockActions(i)}
+		</div>
+		<input type="text" class="field-text" data-field="text" value="${escapeHtml(b.text)}" placeholder="A section heading">
+              </div>`;
 	      }
 	      // cell
 	      return `
-      <div class="block" data-index="${i}" data-type="cell" data-lang="${b.lang}">
-        <div class="block-toolbar">
-          <span class="block-kind">Code cell</span>
-          ${blockActions(i)}
-        </div>
-        <div class="block-row">
-          <select data-field="lang">
-            <option value="js" ${b.lang === 'js' ? 'selected' : ''}>JavaScript (live)</option>
-            <option value="python" ${b.lang === 'python' ? 'selected' : ''}>Python (live)</option>
-            <option value="static" ${b.lang === 'static' ? 'selected' : ''}>Static (code + output you write by hand)</option>
-          </select>
-        </div>
-        <textarea class="code" data-field="code" rows="4" placeholder="your code here">${escapeHtml(b.code)}</textarea>
-        <div class="field output-field">
-          <label style="margin-top:0.6rem;">Output (written by hand, not executed)</label>
-          <textarea class="code" data-field="output" rows="2">${escapeHtml(b.output)}</textarea>
-        </div>
-      </div>`;
+	      <div class="block" data-index="${i}" data-type="cell" data-lang="${b.lang}">
+		<div class="block-toolbar">
+		  <span class="block-kind">Code cell</span>
+		  ${blockActions(i)}
+		</div>
+		<div class="block-row">
+		  <select data-field="lang">
+		    <option value="js" ${b.lang === 'js' ? 'selected' : ''}>JavaScript (live)</option>
+		    <option value="python" ${b.lang === 'python' ? 'selected' : ''}>Python (live)</option>
+		    <option value="static" ${b.lang === 'static' ? 'selected' : ''}>Static (code + output you write by hand)</option>
+		  </select>
+		</div>
+		<textarea class="code" data-field="code" rows="4" placeholder="your code here">${escapeHtml(b.code)}</textarea>
+		<div class="field output-field">
+		  <label style="margin-top:0.6rem;">Output (written by hand, not executed)</label>
+		  <textarea class="code" data-field="output" rows="2">${escapeHtml(b.output)}</textarea>
+		</div>
+	      </div>`;
 	  }
 
 	  function blockActions(i) {
 	      return `<span class="block-actions">
-      <button type="button" data-move="-1" data-index="${i}">&uarr;</button>
-      <button type="button" data-move="1" data-index="${i}">&darr;</button>
-      <button type="button" data-remove="1" data-index="${i}">Remove</button>
-    </span>`;
+		<button type="button" data-move="-1" data-index="${i}">&uarr;</button>
+		<button type="button" data-move="1" data-index="${i}">&darr;</button>
+		<button type="button" data-remove="1" data-index="${i}">Remove</button>
+	      </span>`;
 	  }
 
 	  // structural changes -> full re-render
@@ -474,218 +470,218 @@
 		  n += 1;
 		  if (b.lang === 'static') {
 		      return `<div class="cell cell--static">
-          <p class="cell__prompt">In [${n}]:</p>
-          <div class="cell__code-wrap">
-            <pre class="cell__code">${escapeHtml(b.code)}</pre>
-          </div>
-          <div class="cell__output-wrap">
-            <p class="cell__prompt">Out[${n}]:</p>
-            <pre class="cell__output cell__output--visible">${escapeHtml(b.output)}</pre>
-          </div>
-          <p class="note">static cell — output written by hand, not executed</p>
-        </div>`;
-		  }
-		  const langLabel = b.lang === 'python' ? 'Python' : 'JavaScript';
-		  return `<div class="cell" data-lang="${b.lang}">
-          <p class="cell__prompt">In [<span class="count">${n}</span>]:</p>
-          <div class="cell__code-wrap">
-            <pre class="cell__code" contenteditable="true" spellcheck="false">${escapeHtml(b.code)}</pre>
-            <div class="cell__toolbar">
-              <button class="cell__run">Run &#9656;</button>
-              <span class="cell__lang">${langLabel}</span>
-            </div>
-          </div>
-          <div class="cell__output-wrap">
-            <p class="cell__prompt">Out[<span class="count">${n}</span>]:</p>
-            <pre class="cell__output"></pre>
-          </div>
-        </div>`;
-	      }).join('\n\n        ');
-	  }
+              <p class="cell__prompt">In [${n}]:</p>
+              <div class="cell__code-wrap">
+		<pre class="cell__code">${escapeHtml(b.code)}</pre>
+              </div>
+              <div class="cell__output-wrap">
+		<p class="cell__prompt">Out[${n}]:</p>
+		<pre class="cell__output cell__output--visible">${escapeHtml(b.output)}</pre>
+              </div>
+              <p class="note">static cell — output written by hand, not executed</p>
+          </div>`;
+		 }
+		 const langLabel = b.lang === 'python' ? 'Python' : 'JavaScript';
+		 return `<div class="cell" data-lang="${b.lang}">
+		 <p class="cell__prompt">In [<span class="count">${n}</span>]:</p>
+		 <div class="cell__code-wrap">
+		   <pre class="cell__code" contenteditable="true" spellcheck="false">${escapeHtml(b.code)}</pre>
+		   <div class="cell__toolbar">
+		     <button class="cell__run">Run &#9656;</button>
+		     <span class="cell__lang">${langLabel}</span>
+		   </div>
+		 </div>
+		 <div class="cell__output-wrap">
+		   <p class="cell__prompt">Out[<span class="count">${n}</span>]:</p>
+		   <pre class="cell__output"></pre>
+		 </div>
+      </div>`;
+      }).join('\n\n        ');
+      }
 
-	  function updatePreview() {
-	      const html = compileArticleHtml(blocks);
-	      previewEl.innerHTML = html || '<p class="preview-empty">Nothing to preview yet — add a block on the left.</p>';
-	  }
+      function updatePreview() {
+      const html = compileArticleHtml(blocks);
+      previewEl.innerHTML = html || '<p class="preview-empty">Nothing to preview yet — add a block on the left.</p>';
+      }
 
-	  // ---- load an existing post to keep editing ----
-	  loadFile.addEventListener('change', async (e) => {
-	      const file = e.target.files[0];
-	      if (!file) return;
-	      const text = await file.text();
-	      parseExistingPost(text, file.name);
-	  });
+      // ---- load an existing post to keep editing ----
+      loadFile.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const text = await file.text();
+      parseExistingPost(text, file.name);
+      });
 
-	  function htmlToInlineText(innerHtml) {
-	      let s = innerHtml.replace(/<code>([\s\S]*?)<\/code>/g, '`$1`');
-	      s = s.replace(/<[^>]+>/g, '');
-	      s = s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&mdash;/g, '\u2014');
-	      return s.trim();
-	  }
+      function htmlToInlineText(innerHtml) {
+      let s = innerHtml.replace(/<code>([\s\S]*?)<\/code>/g, '`$1`');
+      s = s.replace(/<[^>]+>/g, '');
+      s = s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&mdash;/g, '\u2014');
+      return s.trim();
+      }
 
-	  function parseExistingPost(html, filename) {
-	      const doc = new DOMParser().parseFromString(html, 'text/html');
-	      const metaScript = doc.querySelector('script#post-meta');
-	      let meta = {};
-	      if (metaScript) {
-		  try { meta = JSON.parse(metaScript.textContent); } catch (err) { /* ignore */ }
-	      }
+      function parseExistingPost(html, filename) {
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      const metaScript = doc.querySelector('script#post-meta');
+      let meta = {};
+      if (metaScript) {
+      try { meta = JSON.parse(metaScript.textContent); } catch (err) { /* ignore */ }
+      }
 
-	      fieldTitle.value = meta.title || '';
-	      fieldTags.value = (meta.tags || []).join(', ');
-	      fieldExcerpt.value = meta.excerpt || '';
-	      fieldDraft.checked = !!meta.draft;
-	      fieldSlug.value = filename.replace(/\.html$/i, '');
-	      slugManuallyEdited = true;
+      fieldTitle.value = meta.title || '';
+      fieldTags.value = (meta.tags || []).join(', ');
+      fieldExcerpt.value = meta.excerpt || '';
+      fieldDraft.checked = !!meta.draft;
+      fieldSlug.value = filename.replace(/\.html$/i, '');
+      slugManuallyEdited = true;
 
-	      const article = doc.querySelector('article.post');
-	      const newBlocks = [];
-	      if (article) {
-		  Array.from(article.children).forEach((el) => {
-		      if (el.tagName === 'P' && el.classList.contains('note')) return; // auto-generated, skip
-		      if (el.tagName === 'P') {
-			  newBlocks.push({ type: 'paragraph', text: htmlToInlineText(el.innerHTML) });
-		      } else if (el.tagName === 'H2') {
-			  newBlocks.push({ type: 'heading', text: el.textContent.trim() });
-		      } else if (el.classList.contains('cell')) {
-			  const isStatic = el.classList.contains('cell--static');
-			  const lang = isStatic ? 'static' : (el.dataset.lang || 'js');
-			  const codeEl = el.querySelector('.cell__code');
-			  const outEl = el.querySelector('.cell__output');
-			  newBlocks.push({
-			      type: 'cell',
-			      lang,
-			      code: codeEl ? codeEl.textContent : '',
-			      output: isStatic && outEl ? outEl.textContent : '',
-			  });
-		      }
-		  });
-	      }
-	      blocks = newBlocks.length ? newBlocks : [{ type: 'paragraph', text: '' }];
-	      renderBlocks();
-	      updatePreview();
-	      saveStatus.textContent = `Loaded ${filename} — editing in place.`;
-	  }
+      const article = doc.querySelector('article.post');
+      const newBlocks = [];
+      if (article) {
+      Array.from(article.children).forEach((el) => {
+      if (el.tagName === 'P' && el.classList.contains('note')) return; // auto-generated, skip
+      if (el.tagName === 'P') {
+      newBlocks.push({ type: 'paragraph', text: htmlToInlineText(el.innerHTML) });
+      } else if (el.tagName === 'H2') {
+      newBlocks.push({ type: 'heading', text: el.textContent.trim() });
+      } else if (el.classList.contains('cell')) {
+      const isStatic = el.classList.contains('cell--static');
+      const lang = isStatic ? 'static' : (el.dataset.lang || 'js');
+      const codeEl = el.querySelector('.cell__code');
+      const outEl = el.querySelector('.cell__output');
+      newBlocks.push({
+      type: 'cell',
+      lang,
+      code: codeEl ? codeEl.textContent : '',
+      output: isStatic && outEl ? outEl.textContent : '',
+      });
+      }
+      });
+      }
+      blocks = newBlocks.length ? newBlocks : [{ type: 'paragraph', text: '' }];
+      renderBlocks();
+      updatePreview();
+      saveStatus.textContent = `Loaded ${filename} — editing in place.`;
+      }
 
-	  // ---- assembling the full saved document ----
-	  function monthYearNow() {
-	      const now = new Date();
-	      const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-				  'July', 'August', 'September', 'October', 'November', 'December'];
-	      return {
-		  display: `${monthNames[now.getMonth()]} ${now.getFullYear()}`,
-		  sortDate: `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`,
-	      };
-	  }
+      // ---- assembling the full saved document ----
+      function monthYearNow() {
+      const now = new Date();
+      const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'];
+      return {
+      display: `${monthNames[now.getMonth()]} ${now.getFullYear()}`,
+      sortDate: `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`,
+      };
+      }
 
-	  function assembleFullDocument() {
-	      const title = fieldTitle.value.trim() || 'Untitled post';
-	      const tags = fieldTags.value.split(',').map((t) => t.trim()).filter(Boolean);
-	      const excerpt = fieldExcerpt.value.trim();
-	      const draft = fieldDraft.checked;
-	      const { display, sortDate } = monthYearNow();
-	      const articleHtml = compileArticleHtml(blocks);
+      function assembleFullDocument() {
+      const title = fieldTitle.value.trim() || 'Untitled post';
+      const tags = fieldTags.value.split(',').map((t) => t.trim()).filter(Boolean);
+      const excerpt = fieldExcerpt.value.trim();
+      const draft = fieldDraft.checked;
+      const { display, sortDate } = monthYearNow();
+      const articleHtml = compileArticleHtml(blocks);
 
-	      const metaBlock = `<script type="application/json" id="post-meta">
-{
-  "title": ${JSON.stringify(title)},
-  "date": ${JSON.stringify(display)},
-  "sortDate": ${JSON.stringify(sortDate)},
-  "tags": ${JSON.stringify(tags)},
-  "excerpt": ${JSON.stringify(excerpt)},
-  "draft": ${draft}
-}
-<\/script>`;
+      const metaBlock = `<script type="application/json" id="post-meta">
+      {
+	  "title": ${JSON.stringify(title)},
+	  "date": ${JSON.stringify(display)},
+	  "sortDate": ${JSON.stringify(sortDate)},
+	  "tags": ${JSON.stringify(tags)},
+	  "excerpt": ${JSON.stringify(excerpt)},
+	  "draft": ${draft}
+      }
+    <\/script>`;
 
-	      return `<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<script>
-  try {
-    if (localStorage.getItem('notebook-theme') === 'dim') {
-      document.documentElement.setAttribute('data-theme', 'dim');
-    }
-  } catch (e) { /* ignore */ }
-<\/script>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${escapeHtml(title)} — Ryon Ghodoussi</title>
-${metaBlock}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400;1,8..60,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles.css">
-</head>
-<body>
-  <div class="theme-toggle" role="group" aria-label="Notebook color theme">
+		      return `<!doctype html>
+    <html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <script>
+    try {
+	if (localStorage.getItem('notebook-theme') === 'dim') {
+	    document.documentElement.setAttribute('data-theme', 'dim');
+	}
+    } catch (e) { /* ignore */ }
+    <\/script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>${escapeHtml(title)} — Ryon Ghodoussi</title>
+    ${metaBlock}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400;1,8..60,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    </head>
+    <body>
+    <div class="theme-toggle" role="group" aria-label="Notebook color theme">
     <button type="button" class="theme-toggle__btn" data-theme-value="lined" aria-pressed="true">Lined</button>
     <button type="button" class="theme-toggle__btn" data-theme-value="dim" aria-pressed="false">Dim</button>
-  </div>
+    </div>
 
-  <main class="notebook" style="padding-top: 4rem;">
+    <main class="notebook" style="padding-top: 4rem;">
     <div class="notebook__inner">
-      <a class="back-link" href="../index.html">&larr; back to the notebook</a>
+    <a class="back-link" href="../index.html">&larr; back to the notebook</a>
 
-      <p class="notebook__label">${escapeHtml(display.toUpperCase())} · ${escapeHtml(tags.join(', ').toUpperCase())}</p>
-      <h1 class="notebook__title" style="margin-bottom: 2rem;">${escapeHtml(title)}</h1>
+    <p class="notebook__label">${escapeHtml(display.toUpperCase())} · ${escapeHtml(tags.join(', ').toUpperCase())}</p>
+    <h1 class="notebook__title" style="margin-bottom: 2rem;">${escapeHtml(title)}</h1>
 
-      <article class="post">
-        ${articleHtml}
+    <article class="post">
+    ${articleHtml}
       </article>
     </div>
-  </main>
+    </main>
 
-  <footer class="site-footer">
+    <footer class="site-footer">
     <p><a class="back-link" href="../index.html">&larr; back to the notebook</a></p>
-  </footer>
+    </footer>
 
-  <script src="../script.js"><\/script>
-</body>
-</html>
-`;
-	  }
+    <script src="../script.js"><\/script>
+    </body>
+    </html>
+    `;
+			       }
 
-	  document.getElementById('btnSave').addEventListener('click', async () => {
-	      const title = fieldTitle.value.trim();
-	      if (!title) {
-		  saveStatus.textContent = 'Add a title first.';
-		  return;
-	      }
-	      const slug = (fieldSlug.value.trim() || slugify(title));
-	      const filename = `${slug}.html`;
-	      const html = assembleFullDocument();
+			       document.getElementById('btnSave').addEventListener('click', async () => {
+			       const title = fieldTitle.value.trim();
+			       if (!title) {
+			       saveStatus.textContent = 'Add a title first.';
+			       return;
+			       }
+			       const slug = (fieldSlug.value.trim() || slugify(title));
+			       const filename = `${slug}.html`;
+			       const html = assembleFullDocument();
 
-	      if (window.showSaveFilePicker) {
-		  try {
-		      const handle = await window.showSaveFilePicker({
-			  suggestedName: filename,
-			  types: [{ description: 'HTML file', accept: { 'text/html': ['.html'] } }],
-		      });
-		      const writable = await handle.createWritable();
-		      await writable.write(html);
-		      await writable.close();
-		      saveStatus.textContent = `Saved ${filename}. Run \`node build.js\` next (unless it's a draft).`;
-		      return;
-		  } catch (err) {
-		      if (err && err.name === 'AbortError') { return; } // user cancelled the picker
-		      // fall through to download fallback below
-		  }
-	      }
+			       if (window.showSaveFilePicker) {
+			       try {
+			       const handle = await window.showSaveFilePicker({
+      suggestedName: filename,
+			       types: [{ description: 'HTML file', accept: { 'text/html': ['.html'] } }],
+			       });
+			       const writable = await handle.createWritable();
+			       await writable.write(html);
+			       await writable.close();
+			       saveStatus.textContent = `Saved ${filename}. Run \`node build.js\` next (unless it's a draft).`;
+			       return;
+			       } catch (err) {
+			       if (err && err.name === 'AbortError') { return; } // user cancelled the picker
+      // fall through to download fallback below
+			       }
+			       }
 
-	      const blob = new Blob([html], { type: 'text/html' });
-	      const url = URL.createObjectURL(blob);
-	      const a = document.createElement('a');
-	      a.href = url;
-	      a.download = filename;
-	      document.body.appendChild(a);
-	      a.click();
-	      a.remove();
-	      URL.revokeObjectURL(url);
-	      saveStatus.textContent = `Downloaded ${filename} — move it into your posts/ folder, then run \`node build.js\`.`;
-	  });
+			       const blob = new Blob([html], { type: 'text/html' });
+			       const url = URL.createObjectURL(blob);
+			       const a = document.createElement('a');
+			       a.href = url;
+			       a.download = filename;
+			       document.body.appendChild(a);
+			       a.click();
+			       a.remove();
+			       URL.revokeObjectURL(url);
+			       saveStatus.textContent = `Downloaded ${filename} — move it into your posts/ folder, then run \`node build.js\`.`;
+      });
 
-	  renderBlocks();
-	  updatePreview();
-      })();
-    </script>
+			       renderBlocks();
+			       updatePreview();
+			       })();
+	</script>
   </body>
 </html>
